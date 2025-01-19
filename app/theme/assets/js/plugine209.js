@@ -19,16 +19,23 @@ Codelug.comment = function() {
             maxDepth: 1,
         });
     }
+};
 
-    // Remove the button with id "inGame"
+/**
+ * Remove In-Game Button
+ */
+Codelug.removeInGameButton = function() {
     var inGameButton = document.getElementById("inGame");
     if (inGameButton) {
         inGameButton.remove();
         console.log("The in-game button has been removed.");
+    } else {
+        console.log("In-game button not found.");
     }
 };
 
-// Call the Codelug.comment function when DOM is fully loaded
+// Ensure everything runs after the DOM is fully loaded
 document.addEventListener("DOMContentLoaded", function() {
     Codelug.comment();
+    Codelug.removeInGameButton();
 });
