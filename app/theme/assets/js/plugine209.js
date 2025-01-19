@@ -25,12 +25,22 @@ Codelug.comment = function() {
  * Remove In-Game Button
  */
 Codelug.removeInGameButton = function() {
-    var inGameButton = document.getElementById("inGame");
-    if (inGameButton) {
-        inGameButton.remove();
-        console.log("The in-game button has been removed.");
+    var iframe = document.querySelector("iframe"); // Select the iframe
+    if (iframe) {
+        try {
+            var iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
+            var inGameButton = iframeDocument.getElementById("inGame"); // Find the button inside the iframe
+            if (inGameButton) {
+                inGameButton.remove();
+                console.log("The in-game button has been removed.");
+            } else {
+                console.log("In-game button not found inside the iframe.");
+            }
+        } catch (error) {
+            console.error("Unable to access iframe content. Possible cross-origin restriction:", error);
+        }
     } else {
-        console.log("In-game button not found.");
+        console.log("Iframe not found.");
     }
 };
 
