@@ -6,7 +6,7 @@ var Codelug = {};
 /**
  * Comment
  */
-Codelug.comment = function() {
+Codelug.comment = function () {
     if ($('.comments').length > 0) {
         var post_id = $('.comments').attr('data-content');
         var post_type = $('.comments').attr('data-type');
@@ -22,16 +22,16 @@ Codelug.comment = function() {
 };
 
 /**
- * Remove In-Game Button
+ * Remove In-Game Button from iframe
  */
-Codelug.removeInGameButton = function() {
-    var iframe = document.querySelector("iframe");
+Codelug.removeInGameButton = function () {
+    var iframe = document.querySelector("iframe"); // Select the iframe
     if (iframe) {
-        // Wait for the iframe to load
-        iframe.addEventListener("load", function() {
+        iframe.addEventListener("load", function () {
             try {
+                // Access iframe content
                 var iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
-                var inGameButton = iframeDocument.getElementById("inGame");
+                var inGameButton = iframeDocument.getElementById("inGame"); // Find the button
                 if (inGameButton) {
                     inGameButton.remove();
                     console.log("The in-game button has been removed.");
@@ -48,10 +48,10 @@ Codelug.removeInGameButton = function() {
 };
 
 /**
- * Observe DOM Changes (For dynamically loaded iframes or buttons)
+ * Observe DOM for Dynamically Loaded iframe
  */
-Codelug.observeDOMChanges = function() {
-    const observer = new MutationObserver(function(mutationsList) {
+Codelug.observeDOMForIframe = function () {
+    const observer = new MutationObserver(function (mutationsList) {
         for (const mutation of mutationsList) {
             if (mutation.type === "childList") {
                 var iframe = document.querySelector("iframe");
@@ -62,11 +62,12 @@ Codelug.observeDOMChanges = function() {
         }
     });
 
+    // Start observing DOM
     observer.observe(document.body, { childList: true, subtree: true });
 };
 
-// Run everything
-document.addEventListener("DOMContentLoaded", function() {
+// Run after DOM is ready
+document.addEventListener("DOMContentLoaded", function () {
     Codelug.comment();
-    Codelug.observeDOMChanges(); // Start observing for changes in the DOM
+    Codelug.observeDOMForIframe(); // Watch for iframe dynamically loaded
 });
